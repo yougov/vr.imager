@@ -7,6 +7,7 @@ setup(
     version='0.0.4',
     author='Brent Tubbs',
     author_email='brent.tubbs@gmail.com',
+    url='https://bitbucket.org/yougov/vr.imager',
     packages=find_packages(),
     include_package_data=True,
     install_requires=[
@@ -17,5 +18,5 @@ setup(
             'vimage = vr.imager.main:main',
         ]
     },
-    description=('Command line tool to create system image tarballs.'),
+    description='Command line tool to create system image tarballs.',
 )
