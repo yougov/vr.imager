@@ -119,6 +119,5 @@ def get_template(name):
     """
     Look for 'name' in the vr.runners.templates folder.  Return its contents.
     """
-    path = pkg_resources.resource_filename('vr.imager', 'templates/' + name)
-    with open(path, 'r') as f:
-        return f.read()
+    path = 'templates/' + name
+    return pkg_resources.resource_stream('vr.imager', path).read()
