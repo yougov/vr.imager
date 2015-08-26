@@ -16,7 +16,7 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'vimage = vr.imager.main:main',
+            'vimage = vr.imager.command:main',
         ],
     },
     description='Command line tool to create system image tarballs.',
