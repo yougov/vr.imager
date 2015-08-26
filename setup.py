@@ -19,5 +19,8 @@ setup(
             'vimage = vr.imager.command:main',
         ],
     },
+    setup_requires=[
+        'setuptools_scm',
+    ],
     description='Command line tool to create system image tarballs.',
 )
