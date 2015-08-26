@@ -3,22 +3,29 @@
 import argparse
 
 import yaml
+from jaraco.ui import cmdline
 
-from vr.imager.build import cmd_build, cmd_shell
+from vr.imager.build import run_image
 from vr.common.models import ConfigData
 
 
-commands = {
-    'build': cmd_build,
-    'shell': cmd_shell,
-}
+class Image:
+    @classmethod
+    def add_arguments(cls, parser):
+        parser.add_argument('image_data', help="Path to image.yaml file.",
+            type=ImageData.from_filename, metavar='file')
 
 
-def get_command(name):
-    try:
-        return commands[name]
-    except KeyError:
-        raise SystemExit("'%s' is not a valid command" % name)
+class Build(Image, cmdline.Command):
+    @classmethod
+    def run(cls, args):
+        run_image(args.image_data, make_tarball=True)
+
+
+class Shell(Image, cmdline.Command):
+    @classmethod
+    def run(cls, args):
+        run_image(args.image_data, cmd='/bin/bash', make_tarball=False)
 
 
 class ImageData(ConfigData):
@@ -38,17 +45,14 @@ class ImageData(ConfigData):
     def __repr__(self):
         print('<ImageData: %s+%s>' % (self.base_image_name, self.script_url))
 
+    @classmethod
+    def from_filename(cls, filename):
+        with open(filename, 'rb') as f:
+            return cls(yaml.safe_load(f))
+
 
 def main():
-
-    cmd_list = ', '.join(sorted(commands.keys()))
-
     parser = argparse.ArgumentParser()
-    parser.add_argument('command', help='One of %s' % cmd_list,
-                        type=get_command)
-    parser.add_argument('file', help="Path to image.yaml file.")
+    cmdline.Command.add_subparsers(parser)
     args = parser.parse_args()
-
-    with open(args.file, 'rb') as f:
-        image_data = ImageData(yaml.safe_load(f))
-    args.command(image_data)
+    args.action.run(args)

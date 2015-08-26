@@ -13,14 +13,6 @@ from vr.runners.image import ensure_image, IMAGES_ROOT
 from vr.runners.base import ensure_file
 
 
-def cmd_build(image_data):
-    run_image(image_data, make_tarball=True)
-
-
-def cmd_shell(image_data):
-    run_image(image_data, cmd='/bin/bash', make_tarball=False)
-
-
 def run_image(image_data, cmd=None, user='root', make_tarball=False):
     outfolder = os.getcwd()
     with tmpdir() as here:
