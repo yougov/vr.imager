@@ -16,7 +16,7 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'vimage = vr.imager.command:main',
+            'vimage = vr.imager.command:invoke',
         ],
     },
     setup_requires=[

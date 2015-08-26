@@ -51,8 +51,4 @@ class ImageData(ConfigData):
             return cls(yaml.safe_load(f))
 
 
-def main():
-    parser = argparse.ArgumentParser()
-    cmdline.Command.add_subparsers(parser)
-    args = parser.parse_args()
-    args.action.run(args)
+invoke = cmdline.Command.invoke
