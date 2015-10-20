@@ -22,7 +22,6 @@ def run_image(*args, **kwargs):
 
 def _run_image(outfolder, image_data, cmd=None, user='root',
         make_tarball=False):
-    here = path.Path.getcwd()
     # download image
     image_path = path.Path('img').realpath()
     print("Ensuring presence of " + image_data.base_image_url)
@@ -38,7 +37,7 @@ def _run_image(outfolder, image_data, cmd=None, user='root',
         'image_path': image_path,
         'network_config': get_lxc_network_config(get_lxc_version()),
     }
-    lxc_file_path = os.path.join(here, 'imager.lxc')
+    lxc_file_path = path.Path.getcwd() / 'imager.lxc'
     print("Writing %s" % lxc_file_path)
     with open(lxc_file_path, 'wb') as f:
         f.write(content)
