@@ -39,8 +39,7 @@ def _run_image(outfolder, image_data, cmd=None, user='root',
     }
     lxc_file_path = path.Path.getcwd() / 'imager.lxc'
     print("Writing %s" % lxc_file_path)
-    with open(lxc_file_path, 'wb') as f:
-        f.write(content)
+    lxc_file_path.write_text(content, encoding='ascii')
 
     lxc_name = 'build_image-' + image_data.new_image_name
 
