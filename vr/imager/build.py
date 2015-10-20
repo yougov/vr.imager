@@ -1,4 +1,4 @@
-from __future__ import print_function
+from __future__ import print_function, unicode_literals
 
 import os
 import pkg_resources
@@ -6,6 +6,7 @@ import shutil
 import subprocess
 import sys
 import tarfile
+import io
 
 import path
 
@@ -121,4 +122,6 @@ def get_template(name):
     Look for 'name' in the vr.runners.templates folder.  Return its contents.
     """
     path = 'templates/' + name
-    return pkg_resources.resource_stream('vr.imager', path).read()
+    b_stream = pkg_resources.resource_stream('vr.imager', path)
+    stream = io.TextIOWrapper(b_stream, encoding='utf-8')
+    return stream.read()
