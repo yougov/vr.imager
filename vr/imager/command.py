@@ -1,7 +1,5 @@
 #!/usr/bin/env python
 
-import argparse
-
 import yaml
 from jaraco.ui import cmdline
 
