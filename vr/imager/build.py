@@ -94,8 +94,10 @@ def _run_image(outfolder, image_data, cmd=None, user='root',
 
 
 def tee(command, env, outfile):
-    p = subprocess.Popen(command, stdout=subprocess.PIPE,
-                         stderr=subprocess.STDOUT,
+    p = subprocess.Popen(
+        command,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
         universal_newlines=True,
     )
     lines = []
