@@ -3,10 +3,11 @@ from __future__ import print_function
 import os
 import pkg_resources
 import shutil
-import stat
 import subprocess
 import sys
 import tarfile
+
+import path
 
 from vr.common.utils import tmpdir, get_lxc_version, get_lxc_network_config
 from vr.runners.image import ensure_image, IMAGES_ROOT
@@ -17,7 +18,7 @@ def run_image(image_data, cmd=None, user='root', make_tarball=False):
     outfolder = os.getcwd()
     with tmpdir() as here:
         # download image
-        image_path = os.path.realpath('img')
+        image_path = path.Path('img').realpath()
         print("Ensuring presence of " + image_data.base_image_url)
         ensure_image(image_data.base_image_name,
                      image_data.base_image_url,
@@ -42,16 +43,12 @@ def run_image(image_data, cmd=None, user='root', make_tarball=False):
         if cmd is None:
             # copy bootstrap script into place and ensure it's executable.
             script = os.path.basename(image_data.script_url)
-            script_path = os.path.join(image_path, script)
+            script_path = image_path / script
             if os.path.exists(image_data.script_url):
                 shutil.copy(image_data.script_url, script_path)
             else:
                 ensure_file(image_data.script_url, script_path)
-            st = os.stat(script_path)
-            os.chmod(
-                script_path,
-                st.st_mode | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH
-            )
+            script_path.chmod('a+x')
             real_cmd = '/' + script
         else:
             real_cmd = cmd

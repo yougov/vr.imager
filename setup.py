@@ -13,6 +13,7 @@ setup(
     install_requires=[
         'vr.runners>=2.4.3,<3',
         'jaraco.ui',
+        'path.py>=7.2',
     ],
     entry_points={
         'console_scripts': [
