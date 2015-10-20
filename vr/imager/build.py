@@ -78,7 +78,7 @@ def _run_image(outfolder, image_data, cmd=None, user='root',
 
     logpath = os.path.join(outfolder, '%s.log' % image_data.new_image_name)
     print("LOGPATH", logpath)
-    with open(logpath, 'wb') as logfile:
+    with open(logpath, 'w') as logfile:
         tee(lxc_args, env, logfile)
 
     # remove build script if we used one.
@@ -95,7 +95,9 @@ def _run_image(outfolder, image_data, cmd=None, user='root',
 
 def tee(command, env, outfile):
     p = subprocess.Popen(command, stdout=subprocess.PIPE,
-                         stderr=subprocess.STDOUT)
+                         stderr=subprocess.STDOUT,
+        universal_newlines=True,
+    )
     lines = []
     status_code = None
     print("run:", command)
