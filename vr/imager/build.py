@@ -14,9 +14,14 @@ from vr.runners.image import ensure_image, IMAGES_ROOT
 from vr.runners.base import ensure_file
 
 
-def run_image(image_data, cmd=None, user='root', make_tarball=False):
+def run_image(*args, **kwargs):
     outfolder = os.getcwd()
     with tmpdir() as here:
+        _run_image(here, outfolder, *args, **kwargs)
+
+
+def _run_image(here, outfolder, image_data, cmd=None, user='root',
+            make_tarball=False):
         # download image
         image_path = path.Path('img').realpath()
         print("Ensuring presence of " + image_data.base_image_url)
