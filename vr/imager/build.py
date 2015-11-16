@@ -127,5 +127,4 @@ def get_template(name):
     """
     path = 'templates/' + name
     b_stream = pkg_resources.resource_stream('vr.imager', path)
-    stream = io.TextIOWrapper(b_stream, encoding='utf-8')
-    return stream.read()
+    return b_stream.read().decode('utf-8')
