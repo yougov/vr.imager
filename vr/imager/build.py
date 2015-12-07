@@ -123,6 +123,11 @@ def tee(command, env, outfile):
 def get_template(name):
     """
     Look for 'name' in the vr.runners.templates folder.  Return its contents.
+
+    >>> import six
+    >>> tmpl = get_template('base_image.lxc')
+    >>> isinstance(tmpl, six.string_types)
+    True
     """
     path = 'templates/' + name
     b_stream = pkg_resources.resource_stream('vr.imager', path)
