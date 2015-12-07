@@ -23,6 +23,10 @@ setup(
     },
     setup_requires=[
         'setuptools_scm',
+        'pytest-runner',
+    ],
+    tests_require=[
+        'pytest',
     ],
     description='Command line tool to create system image tarballs.',
 )
