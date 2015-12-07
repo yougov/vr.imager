@@ -1,7 +1,7 @@
 #!/usr/bin/python
 from setuptools import setup, find_packages
 
-setup(
+setup_params = dict(
     name='vr.imager',
     namespace_packages=['vr'],
     version='1.2',
@@ -30,3 +30,6 @@ setup(
     ],
     description='Command line tool to create system image tarballs.',
 )
+
+if __name__ == '__main__':
+    setup(**setup_params)
