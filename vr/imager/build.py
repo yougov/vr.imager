@@ -25,11 +25,13 @@ def _run_image(outfolder, image_data, cmd=None, user='root',
     # download image
     image_path = path.Path('img').realpath()
     print("Ensuring presence of " + image_data.base_image_url)
-    ensure_image(image_data.base_image_name,
-                 image_data.base_image_url,
-                 IMAGES_ROOT,
-                 image_data.base_image_md5,
-                 untar_to=image_path)
+    ensure_image(
+        image_data.base_image_name,
+        image_data.base_image_url,
+        IMAGES_ROOT,
+        image_data.base_image_md5,
+        untar_to=image_path,
+    )
 
     # write LXC config file
     tmpl = get_template('base_image.lxc')
@@ -66,9 +68,17 @@ def _run_image(outfolder, image_data, cmd=None, user='root',
         '--',
         real_cmd,
     ]
+    path_items = (
+        '/usr/local/sbin',
+        '/usr/local/bin',
+        '/usr/sbin',
+        '/usr/bin',
+        '/sbin',
+        '/bin',
+        '/usr/games',
+    )
     env = {
-        'PATH': '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:'
-                '/sbin:/bin:/usr/games',
+        'PATH': os.pathsep.join(path_items),
         'HOME': '/root',
     }
     env.update(image_data.env or {})
@@ -85,8 +95,8 @@ def _run_image(outfolder, image_data, cmd=None, user='root',
         os.remove(script_path)
 
     if make_tarball:
-        tardest = os.path.join(outfolder, '%s.tar.gz' %
-                               image_data.new_image_name)
+        img_name = '{image_data.new_image_name}.tar.gz'.format(**locals())
+        tardest = os.path.join(outfolder, img_name)
         print("Compressing image to " + tardest)
         with tarfile.open(tardest, 'w:gz') as tar:
             tar.add(image_path, arcname='')
@@ -116,8 +126,11 @@ def tee(command, env, outfile):
     handle_output(p.stdout.read())
 
     if status_code != 0:
-        raise subprocess.CalledProcessError(status_code, command,
-                                            output=''.join(lines))
+        raise subprocess.CalledProcessError(
+            status_code,
+            command,
+            output=''.join(lines),
+        )
 
 
 def get_template(name):
