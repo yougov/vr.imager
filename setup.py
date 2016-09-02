@@ -11,7 +11,7 @@ setup_params = dict(
     packages=find_packages(),
     include_package_data=True,
     install_requires=[
-        'vr.runners>=2.8,<3',
+        'vr.runners>=2.10,<3',
         'jaraco.ui',
         'path.py>=7.2',
         'vr.common>=4.3,<5dev',
