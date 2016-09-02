@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 setup_params = dict(
     name='vr.imager',
     namespace_packages=['vr'],
-    version='1.3.0',
+    version='1.3.1',
     author='Brent Tubbs',
     author_email='brent.tubbs@gmail.com',
     url='https://bitbucket.org/yougov/vr.imager',
