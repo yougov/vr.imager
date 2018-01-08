@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+import pkg_resources
+
 import yaml
 from jaraco.ui import cmdline
 
@@ -7,11 +9,21 @@ from vr.imager.build import run_image
 from vr.common.models import ConfigData
 
 
+def get_version():
+    try:
+        return pkg_resources.get_distribution('vr.imager').version
+    except:
+        return None
+
+
 class Image:
     @classmethod
     def add_arguments(cls, parser):
-        parser.add_argument('image_data', help="Path to image.yaml file.",
+        parser.add_argument(
+            'image_data', help="Path to image.yaml file.",
             type=ImageData.from_filename, metavar='file')
+        parser.add_argument(
+            '--version', action='version', version=get_version())
 
 
 class Build(Image, cmdline.Command):
