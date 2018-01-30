@@ -12,7 +12,7 @@ from vr.common.models import ConfigData
 def get_version():
     try:
         return pkg_resources.get_distribution('vr.imager').version
-    except:
+    except Exception:
         return None
 
 
