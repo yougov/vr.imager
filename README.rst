@@ -3,22 +3,13 @@
 
 .. image:: https://img.shields.io/pypi/pyversions/vr.imager.svg
 
-.. image:: https://img.shields.io/pypi/dm/vr.imager.svg
-
 .. image:: https://img.shields.io/travis/yougov/vr.imager/master.svg
-   :target: http://travis-ci.org/yougov/vr.imager
+   :target: https://travis-ci.org/yougov/vr.imager
 
 vr.imager is a component of the `Velociraptor
 <https://github.com/yougov/velociraptor>`_ project.
 
 The supported interface is the command-line API.
-
-License
-=======
-
-License is indicated in the project metadata (typically one or more
-of the Trove classifiers). For more details, see `this explanation
-<https://github.com/jaraco/skeleton/issues/1>`_.
 
 Docs
 ====
