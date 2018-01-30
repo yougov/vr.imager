@@ -36,7 +36,7 @@ params = dict(
         'vr.runners>=2.10,<3',
         'jaraco.ui',
         'path.py>=7.2',
-        'vr.common>=4.3,<5dev',
+        'vr.common>=4.3,<6dev',
     ],
     extras_require={
         'testing': [
