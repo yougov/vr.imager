@@ -20,7 +20,8 @@ def run_image(*args, **kwargs):
         _run_image(outfolder, *args, **kwargs)
 
 
-def _run_image(outfolder, image_data, cmd=None, user='root',
+def _run_image(
+        outfolder, image_data, cmd=None, user='root',
         make_tarball=False):
     # download image
     image_path = path.Path('img').realpath()
