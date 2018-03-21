@@ -33,10 +33,10 @@ params = dict(
     ),
     python_requires='>=2.7',
     install_requires=[
-        'vr.runners>=2.10,<3',
+        'vr.runners>=2.10',
         'jaraco.ui',
         'path.py>=7.2',
-        'vr.common>=4.3,<6dev',
+        'vr.common>=4.3',
     ],
     extras_require={
         'testing': [
