@@ -2,12 +2,7 @@
 
 # Project skeleton maintained at https://github.com/jaraco/skeleton
 
-import io
-
 import setuptools
-
-with io.open('README.rst', encoding='utf-8') as readme:
-    long_description = readme.read()
 
 name = 'vr.imager'
 description = 'Command line tool to create system image tarballs.'
@@ -23,7 +18,6 @@ params = dict(
     author="Brent Tubbs",
     author_email="brent.tubbs@gmail.com",
     description=description or name,
-    long_description=long_description,
     url="https://github.com/yougov/" + name,
     packages=setuptools.find_packages(),
     include_package_data=True,
@@ -41,7 +35,7 @@ params = dict(
     extras_require={
         'testing': [
             # upstream
-            'pytest>=2.8',
+            'pytest>=3.5,!=3.7.3',
             'pytest-sugar>=0.9.1',
             'collective.checkdocs',
             'pytest-flake8',
