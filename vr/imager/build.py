@@ -34,15 +34,7 @@ def _run_image(
         untar_to=image_path,
     )
 
-    # write LXC config file
-    tmpl = get_template('base_image.lxc')
-    content = tmpl % {
-        'image_path': image_path,
-        'network_config': get_lxc_network_config(get_lxc_version()),
-    }
-    lxc_file_path = path.Path.getcwd() / 'imager.lxc'
-    print("Writing %s" % lxc_file_path)
-    lxc_file_path.write_text(content, encoding='ascii')
+    lxc_file_path = write_lxc_config(image_path)
 
     lxc_name = 'build_image-' + image_data.new_image_name
 
@@ -101,6 +93,16 @@ def _run_image(
         print("Compressing image to " + tardest)
         with tarfile.open(tardest, 'w:gz') as tar:
             tar.add(image_path, arcname='')
+
+
+def write_lxc_config(image_path):
+    tmpl = get_template('base_image.lxc')
+    network_config = get_lxc_network_config(get_lxc_version())
+    content = tmpl % locals()
+    lxc_file_path = path.Path.getcwd() / 'imager.lxc'
+    print("Writing %s" % lxc_file_path)
+    lxc_file_path.write_text(content, encoding='ascii')
+    return lxc_file_path
 
 
 def tee(command, env, outfile):
