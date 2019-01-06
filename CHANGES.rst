@@ -1,3 +1,8 @@
+2.0.0
+=====
+
+Switch to pkgutil-style namespace.
+
 1.5.0
 =====
 
